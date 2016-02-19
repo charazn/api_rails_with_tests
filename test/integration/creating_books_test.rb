@@ -22,7 +22,8 @@ class CreatingBooksTest < ActionDispatch::IntegrationTest
     assert_equal Mime::JSON, response.content_type
 
     book = json(response.body)
-    assert_equal books_url(book[:id]), response.location # Incorrectly shown as book_url in the video
+    # byebug
+    assert_equal book_url(book[:id]), response.location # Incorrectly shown as book_url in the video
     assert_equal 'Pragmatic Programmer', book[:title]
     assert_equal 5, book[:rating]
     assert_equal 'Dave Thomson', book[:author]

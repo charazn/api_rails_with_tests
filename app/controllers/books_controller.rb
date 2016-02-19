@@ -10,7 +10,7 @@ class BooksController < ApplicationController
   def create
     book = Book.new(book_params)
     if book.save
-      render json: book, status: 201, location: books_url(book) # Rails know to create the url for this resource just created
+      render json: book, status: 201, location: book_url(book) # Rails know to create the url for this resource just created
                                                                 # Incorrectly shown as book in video
     else
       render json: book.errors, status: 422
