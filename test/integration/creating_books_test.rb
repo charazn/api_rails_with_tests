@@ -6,7 +6,12 @@ class CreatingBooksTest < ActionDispatch::IntegrationTest
   # Eg. we are creating a book, but might not necessary refer to the books controller.
   test "create new books with valid data" do
     post '/books',
-      { book: { title: 'Pragmatic Programmer', rating: 5 } }.to_json,
+      { book: { title: 'Pragmatic Programmer',
+                rating: 5,
+                author: 'Dave Thomson',
+                review: 'Excellent',
+                genre_id: 1,
+                amazon_id: '123123' } }.to_json,
       { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
       # 'Accept' is to tell the response format that we are sending back from our server to the client
       # 'Content-Type' is to tell our API the format of the data we are sending in
@@ -20,6 +25,10 @@ class CreatingBooksTest < ActionDispatch::IntegrationTest
     assert_equal books_url(book[:id]), response.location # Incorrectly shown as book_url in the video
     assert_equal 'Pragmatic Programmer', book[:title]
     assert_equal 5, book[:rating]
+    assert_equal 'Dave Thomson', book[:author]
+    assert_equal 'Excellent', book[:review]
+    assert_equal 1, book[:genre_id]
+    assert_equal '123123', book[:amazon_id]
   end
 
   test "create new books with invalid data" do # if want to test validations, should use model test
